@@ -5,7 +5,6 @@ import MovieCard from './MovieCard';
 
 const MovieList = () => {
     const movies = getAllMovies();
-    console.log(movies);
 
     return (
         <div className='grid place-content-center sm:grid-cols-2 xl:grid-cols-3 gap-7'>

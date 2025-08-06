@@ -1,79 +1,70 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MovieContext } from "../context";
+import { getImgUrl } from "../utils/cine-utility";
+import Delete from "../assets/delete.svg";
 
-const CartDetails = ({onClose}) => {
+const CartDetails = ({ onClose }) => {
+  const { cartData, setCartData } = useContext(MovieContext);
+
+  const handleRemove = (id) => {
+    const updatedCart = cartData.filter((item) => item.id !== id);
+    setCartData(updatedCart);
+  };
+
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-black/60 backdrop-blur-sm">
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[420px] sm:max-w-[600px] lg:max-w-[790px] p-4 max-h-[90vh] overflow-auto">
-        <div className="bg-white shadow-md dark:bg-[#12141D] rounded-2xl overflow-hidden p-5 md:p-9">
-          <h2 className="text-2xl lg:text-[30px] mb-10 font-bold">
-            Your Carts
-          </h2>
-          <div className="space-y-8 lg:space-y-12 max-h-[450px] overflow-auto mb-10 lg:mb-14">
-            <div className="grid grid-cols-[1fr_auto] gap-4">
-              <div className="flex items-center gap-4">
-                <img
-                  className="rounded overflow-hidden"
-                  src="/assets/cart-item.png"
-                  alt=""
-                />
-                <div>
-                  <h3 className="text-base md:text-xl font-bold">Iron Man</h3>
-                  <p className="max-md:text-xs text-[#575A6E]">
-                    Action/Adventure/Sci-fi
-                  </p>
-                  <span className="max-md:text-xs">$100</span>
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center items-center">
+      <div className="w-full max-w-[840px] mx-4 max-h-[90vh] overflow-auto">
+        <div className="bg-black text-white rounded-2xl shadow-xl p-6 md:p-10 space-y-8">
+          <h2 className="text-3xl font-bold text-[#39e1aa]">Your Cart</h2>
+
+          {cartData.length > 0 ? (
+            <div className="space-y-6 max-h-[400px] overflow-auto pr-2">
+              {cartData.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex justify-between items-start gap-4 border-b border-gray-700 pb-4"
+                >
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={getImgUrl(item.cover)}
+                      alt={item.title}
+                      className="w-20 h-20 object-cover rounded-lg"
+                    />
+                    <div>
+                      <h3 className="text-xl font-semibold">{item.title}</h3>
+                      <p className="text-sm text-gray-400 line-clamp-2">{item.description}</p>
+                      <p className="text-[#39e1aa] font-semibold mt-1">${item.price}</p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleRemove(item.id)}
+                    className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white rounded-md px-3 py-2 text-sm transition"
+                  >
+                    <img src={Delete} alt="Delete" className="w-5 h-5" />
+                    <span className="hidden md:inline">Remove</span>
+                  </button>
                 </div>
-              </div>
-              <div className="flex justify-between gap-4 items-center">
-                <button className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white">
-                  <img className="w-5 h-5" src="./assets/delete.svg" alt="" />
-                  <span className="max-md:hidden">Remove</span>
-                </button>
-              </div>
+              ))}
             </div>
-            <div className="grid grid-cols-[1fr_auto] gap-4">
-              <div className="flex items-center gap-4">
-                <img
-                  className="rounded overflow-hidden"
-                  src="/assets/cart-item.png"
-                  alt=""
-                />
-                <div>
-                  <h3 className="text-base md:text-xl font-bold">Iron Man</h3>
-                  <p className="max-md:text-xs text-[#575A6E]">
-                    Action/Adventure/Sci-fi
-                  </p>
-                  <span className="max-md:text-xs">$100</span>
-                </div>
-              </div>
-              <div className="flex justify-between gap-4 items-center">
-                <button className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white">
-                  <img className="w-5 h-5" src="./assets/delete.svg" alt="" />
-                  <span className="max-md:hidden">Remove</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center justify-end gap-2">
+          ) : (
+            <p className="text-center text-gray-400">Your cart is empty.</p>
+          )}
+
+          <div className="flex justify-end gap-4 pt-6 border-t border-gray-700">
             <a
-              className="rounded-md p-2 md:px-4 inline-flex items-center space-x-2 bg-primary text-[#171923] text-sm"
               href="#"
+              className="bg-[#39e1aa] hover:bg-[#2ed49b] text-black px-5 py-2 rounded-lg flex items-center gap-2 font-semibold transition"
             >
-              <img
-                src="./assets/icons/checkout.svg"
-                width="24"
-                height="24"
-                alt=""
-              />
+              <img src="./assets/icons/checkout.svg" width="20" height="20" alt="Checkout" />
               <span>Checkout</span>
             </a>
-            <a
-              className="border border-[#74766F] rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#6F6F6F] dark:text-gray-200 font-semibold text-sm"
-              href="#"
+            <button
               onClick={onClose}
+              className="border border-gray-500 text-gray-300 hover:text-white hover:border-white px-5 py-2 rounded-lg font-medium transition"
             >
               Cancel
-            </a>
+            </button>
           </div>
         </div>
       </div>

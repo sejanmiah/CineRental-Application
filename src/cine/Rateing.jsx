@@ -3,7 +3,6 @@ import Star from "../assets/star.svg"
 
 const Rateing = ({value}) => {
     const stars = Array(value).fill(Star)
-    console.log(stars);
     return (
         <>
             {

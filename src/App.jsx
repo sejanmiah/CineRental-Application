@@ -6,10 +6,10 @@ import Footer from "./Footer";
 import { MovieContext } from "./context";
 
 const App = () => {
-  const [cartData, setCartdata] = useState([])
+  const [cartData, setCartData] = useState([])
   return (
     <>
-      <MovieContext.Provider value={{cartData,setCartdata}}>
+      <MovieContext.Provider value={{cartData,setCartData}}>
         <Header></Header>
         <div className="container mx-auto grid lg:grid-cols-[218px_1fr] place-content-center  gap-[3.5rem]">
           <Sidebar></Sidebar>
