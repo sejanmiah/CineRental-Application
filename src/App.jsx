@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './HEader';
 import Sidebar from './Sidebar';
 import MovieList from './cine/MovieList';
+import Footer from './Footer';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
         <Sidebar></Sidebar>
         <MovieList></MovieList>
       </div>
+      <Footer></Footer>
     </div>
   );
 };
