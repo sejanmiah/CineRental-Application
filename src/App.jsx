@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import MovieList from './cine/MovieList';
 import Footer from './Footer';
 
+
 const App = () => {
   return (
     <div>
