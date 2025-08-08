@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+
+.dark{
+    @apply bg-[#171973] text-white
+}
